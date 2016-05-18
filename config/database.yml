@@ -24,8 +24,7 @@ default: &default
 development:
   <<: *default
   database: filmr_development
-  pool: 5
-  username: Ryan
+
 
 
   # The specified database role being used to connect to postgres.
@@ -61,9 +60,7 @@ development:
 test:
   <<: *default
   database: filmr_test
-  pool: 5
-  username: Ryan
-  password: 
+
 
 
 # As with config/secrets.yml, you never want to store sensitive information,
@@ -88,5 +85,4 @@ test:
 production:
   <<: *default
   database: filmr_production
-  username: filmr
-  password: <%= ENV['FILMR_DATABASE_PASSWORD'] %>
+  username: Ryan
