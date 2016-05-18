@@ -5,7 +5,8 @@ class ScriptsController < ApplicationController
   end
 
   def new
-    @script = Script.new
+   # @script = Script.new
+    @script = current_user.scripts.build
   end
 
   def show
@@ -13,7 +14,7 @@ class ScriptsController < ApplicationController
   end
 
   def create
-    @script = Script.new(script_params)
+    @script = current_user.scripts.build(script_params)
     if @script.save
       flash[:success] = "Your event was successfully created!"
       redirect_to script_path(@script)

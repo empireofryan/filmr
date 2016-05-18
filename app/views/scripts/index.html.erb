@@ -1,3 +1,10 @@
-Hello
 
-<%= render @scripts %>
+
+<% @scripts.each do |script| %>
+<li>
+  <ol>
+  <p><%= script.title %></p>
+  <p><%= script.logline %></p>
+  </ol>
+</li>
+<% end %>
