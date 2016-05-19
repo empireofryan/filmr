@@ -36,6 +36,9 @@ Rails.application.configure do
   # Checks for improperly declared sprockets dependencies.
   # Raises helpful error messages.
   config.assets.raise_runtime_errors = true
+  ENV['FACEBOOK_APP_ID'] = "571382846369422";
+  ENV['FACEBOOK_SECRET'] = "502a10d7de0f8e87608a1c9cc885095c";
+
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
