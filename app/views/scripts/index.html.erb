@@ -5,6 +5,15 @@
   <ol>
   <p><%= script.title %></p>
   <p><%= script.logline %></p>
+  <p><%= script.user.email %></p>
   </ol>
 </li>
+<% end %>
+
+
+<%= link_to "Sign Up", new_user_registration_path %>
+<%= link_to "Sign In", new_user_session_path %>
+<% if script.user == current_user? %>
+<%= link_to "Sign Out", destroy_user_session_path, :method => :delete %>
+  <%= link_to "Destroy", @script, method: :delete, data: { confirm: 'Are you sure?'} %>
 <% end %>

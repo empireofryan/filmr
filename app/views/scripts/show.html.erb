@@ -1,2 +1,5 @@
 <h4><%= @script.title %></h4>
 <p><%= @script.logline %></p>
+<% if user_signed_in? %>
+  <%= link_to "Destroy", @script, method: :delete, data: { confirm: 'Are you sure?'} %>
+<% end %>
