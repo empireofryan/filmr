@@ -10,7 +10,7 @@ class GenresController < ApplicationController
   end
 
   def create
-    @genre = current_user.scripts.build(genre_params)
+    @genre = current_user.genres.build(genre_params)
     if @genre.save
       flash[:success] = "Your event was successfully created!"
       redirect_to genre_path(@genre)
@@ -19,9 +19,13 @@ class GenresController < ApplicationController
     end
   end
 
+  def show
+    @genre = Genre.find(params[:id])
+  end
+
   private
 
   def genre_params
-    params.require(:genre).permit(:type)
+    params.require(:genre).permit(:name)
   end
 end

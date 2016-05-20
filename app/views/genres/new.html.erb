@@ -1,7 +1,5 @@
 <%= form_for @genre do |f| %>
-  <%= f.label "Title" %>
-  <%= f.text_field :title %><br><br>
-  <%= f.label "Logline" %>
-  <%= f.text_field :logline %><br><br>
+  <%= f.label "Name" %>
+  <%= f.text_field :name %><br><br>
   <%= f.submit class: "btn btn-primary" %>
 <% end %>
