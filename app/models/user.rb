@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
          :omniauthable, :omniauth_providers => [:facebook]
 
   has_many :scripts
+  has_many :genres, :through => :scripts
 
   #@user = User.from_omniauth(request.env["omniauth.auth"])
 
