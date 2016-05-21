@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :genres do
     resources :scripts
   end
- root to: 'scripts#index'
+ root 'welcome#index'
 
 
 
