@@ -1,20 +1,13 @@
 
 
+<br><br>
+
 <% @scripts.each do |script| %>
-<li>
-  <ol>
-  <p><%= script.title %></p>
-  <p><%= script.logline %></p>
-  <p><%= script.user.email %></p>
-  </ol>
-</li>
-<% end %>
-
-
-<% scripts.title(current_user).each do |script| %>
-<li><%= link_to script.title, genre_scripts_path(script) %></li>
+<li><%= link_to script.title, genre_script_path(script.genre, script) %></li>
   <ul>
-    <li><%= script.item_name %></li>
+   <li><%= script.title %></li>
+   <li><%= script.logline %></li>
+   <li><%= script.user.email %></li>
   </ul>
 <% end %>
 

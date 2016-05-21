@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :genres do
     resources :scripts
   end
- 
+ root to: 'scripts#index'
 
 
 
@@ -11,7 +11,7 @@ Rails.application.routes.draw do
  # get 'auth/failure', to: redirect('/')
  # get 'signout', to: 'sessions#destroy', as: 'signout'
 
-  root to: 'scripts#index'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

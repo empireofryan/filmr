@@ -2,7 +2,7 @@ class ScriptsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
 
   def index
-    @scripts = Script.all
+    @scripts = Script.where(genre_id: params[:genre_id])
   end
 
   def new
@@ -28,6 +28,6 @@ class ScriptsController < ApplicationController
   private
 
   def script_params
-    params.require(:script).permit(:title, :logline)
+    params.require(:script).permit(:title, :logline, :genre_id)
   end
 end
