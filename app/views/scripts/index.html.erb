@@ -10,8 +10,9 @@
 </li>
 <% end %>
 
+
+<% scripts.title(current_user).each do |script| %>
 <li><%= link_to script.title, genre_scripts_path(script) %></li>
-<% script.title(current_user).each do |script| %>
   <ul>
     <li><%= script.item_name %></li>
   </ul>
