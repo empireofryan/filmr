@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
 
   has_many :scripts
   has_many :genres, :through => :scripts
+  has_many :comments, :through => :scripts
 
   #@user = User.from_omniauth(request.env["omniauth.auth"])
 

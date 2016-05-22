@@ -1,21 +1,21 @@
 
 
 <br><br>
-
-<% @scripts.each do |script| %>
-<li><%= link_to script.title, genre_script_path(script.genre, script) %></li>
-  <ul>
-   <li><%= script.title %></li>
-   <li><%= script.logline %></li>
-   <li><%= script.user.email %></li>
-  </ul>
-<% end %>
+<div class="col-md-3">
+  <% @scripts.each do |script| %>
+  <li><%= link_to script.title, genre_script_path(script.genre, script) %></li>
+    <ul>
+     <li><%= script.title %></li>
+     <li><%= script.logline %></li>
+     <li><%= script.user.email %></li>
+    </ul>
+  <% end %>
+</div>
 
 <h2 class="page-header">Sorted Bootstrap Scripts</h2>
 <% @scripts.alpha_sorted.each do |script| %>
   <li><%= script.title %></li>
   <li><%= script.logline %></li>
-
 <% end %>
 
 <%= link_to "Sign Up", new_user_registration_path %>
