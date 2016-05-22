@@ -1,0 +1,32 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span> 
+      </button>
+      <a class="navbar-brand">Filmr</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+      <% if user_signed_in? %>
+        <li><%= link_to "Home", root_path %></li>
+        <li><%= link_to "Scripts by Genre", genres_path %></li>
+        <li><%= link_to "New Script", new_script_path %></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <p class="nav navbar-text">Logged in as <%= current_user.email %></p>
+        <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
+      </ul>
+      <% else %>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><%= link_to "Sign Up", new_user_registration_path %></li>
+        <li><%= link_to "Sign In", new_user_session_path %></li>
+        <li><%= link_to "Sign In with Facebook", user_omniauth_authorize_path(:facebook) %></li>
+      </ul>
+      <% end %>
+    </div>
+  </div>
+</nav>

@@ -8,6 +8,7 @@ class ScriptsController < ApplicationController
   def new
    # @script = Script.new
     @script = current_user.scripts.build
+
   end
 
   def show
@@ -17,9 +18,10 @@ class ScriptsController < ApplicationController
 
   def create
     @script = current_user.scripts.build(script_params)
+    @genre = Genre.last(params[:genre_id])
     if @script.save
       flash[:success] = "Your event was successfully created!"
-      redirect_to script_path(@script)
+      redirect_to genre_scripts_path(@genre)
     else
       render :new
     end
@@ -29,5 +31,8 @@ class ScriptsController < ApplicationController
 
   def script_params
     params.require(:script).permit(:title, :logline, :genre_id)
+  end
+  def genre_params
+    params.require(:genre).permit(:genre_id)
   end
 end

@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :genres do
     resources :scripts
   end
+  resources :scripts
  root 'welcome#index'
 
 
