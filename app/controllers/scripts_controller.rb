@@ -19,6 +19,7 @@ class ScriptsController < ApplicationController
   def create
     @script = current_user.scripts.build(script_params)
     @genre = Genre.last(params[:genre_id])
+    @comment = Comment.description.create(script_params)
     if @script.save
       flash[:success] = "Your event was successfully created!"
       redirect_to genre_scripts_path(@genre)
