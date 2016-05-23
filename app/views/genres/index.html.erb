@@ -1,2 +1,9 @@
 <h1>Genres</h1>
 <p>Select a Genre</p>
+
+
+<div class="col-md-3">
+  <% @genres.each do |genre| %>
+  <li><%= link_to genre.name, genre_scripts_path(genre) %></li>
+  <% end %>
+</div>
