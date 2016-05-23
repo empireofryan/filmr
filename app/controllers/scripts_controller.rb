@@ -18,11 +18,9 @@ class ScriptsController < ApplicationController
 
   def create
     @script = current_user.scripts.build(script_params)
-    @genre = Genre.last(params[:genre_id])
-    @comment = Comment.create(params[:description])
     if @script.save
       flash[:success] = "Your event was successfully created!"
-      redirect_to genre_scripts_path(@genre)
+      redirect_to genre_scripts_path(@script.genre)
     else
       render :new
     end
@@ -38,10 +36,17 @@ class ScriptsController < ApplicationController
     end
   end
 
+  def destroy
+    @script = Script.find(params[:id])
+    @script.destroy
+    flash[:notice] = "Script deleted"
+    redirect_to genre_scripts_path(@script.genre)
+  end
+
   private
 
   def script_params
-    params.require(:script).permit(:title, :logline, :genre_id)
+    params.require(:script).permit(:title, :logline, :genre_id, comments_attributes: [:description])
   end
   def genre_params
     params.require(:genre).permit(:genre_id)

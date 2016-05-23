@@ -6,6 +6,10 @@ class Script < ActiveRecord::Base
 
   validates :title, :logline, presence: :true
 
+  def comments_attributes=(attributes)
+    # Comment.find_or_create_by(description: description)
+  end
+
   def genre_attributes=(attributes)
     Genre.find_or_create_by(name: name)
   end
