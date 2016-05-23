@@ -2,13 +2,14 @@
 <p><%= @script.logline %></p>
 <p><%= @genre.name %></p>
 
-<%= bootstrap_form_for @script do |f| %>
+<%= form_for @script do |f| %>
+
 <%= f.fields_for :comments, @script.comments.build do |comments_fields| %>
   <%= comments_fields.label "Add your comment" %>
   <div class="help-block">What do you think about this movie?</div>
   <%= comments_fields.text_field :description, hide_label: true %>
+  <% end %>
 <% end %>
-
 
 
 
