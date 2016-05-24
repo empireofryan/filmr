@@ -17,3 +17,41 @@
 <% end %>
 
 
+
+
+<link href='https://fonts.googleapis.com/css?family=Cousine:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+
+<h1>New</h1>
+
+<!-- <div ng-if="scriptForm.title.$error.required" class="alert" style="text-align:center">
+Title is required
+</div> -->
+<div class="script-box">
+  <h1 class="script-title">New Script</h1>
+  <form name="scriptForm" ng-submit="actions.submitForm()" class="script-form">
+    <div class="form-group row">
+      <label class="col-sm-2 mt15">Title</label>
+      <input type="text" name="title" placeholder="Title" class="col-sm-10" ng-model="script.title" required />
+    </div>
+
+    <div class="form-group row">
+      <label class="col-sm-2 mt15">Author</label>
+      <input type="text" name="author" class="col-sm-10" ng-model="script.author" required />
+    </div>
+
+    <div class="form-group row">
+      <label class="col-sm-2 mt15">Genre</label>
+      <input type="text" name="genre" class="col-sm-10" ng-model="script.genre" required />
+    </div>
+
+    <div class="form-group row">
+      <label class="col-sm-2 mt15">Logline</label>
+      <textarea type="text" name="logline" rows="5" cols="50" class="col-sm-10 logline-form" ng-model="script.logline" required ></textarea>
+    </div>
+
+<!--     <div class="form-group row">
+      <label class="col-sm-2">Rating</label>
+      <input type="number" name="rating" class="col-sm-10" ng-model="script.rating" required />
+    </div> -->
+
+    <input type="submit">

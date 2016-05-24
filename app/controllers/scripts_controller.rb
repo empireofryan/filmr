@@ -17,6 +17,7 @@ class ScriptsController < ApplicationController
   end
 
   def create
+    
     @script = current_user.scripts.build(script_params)
     if @script.save
       flash[:success] = "Your event was successfully created!"
