@@ -19,6 +19,10 @@
    color:white;
  }
 
+ input {
+  color:black;
+ }
+
  body {
    background-color:black !important;
  }
