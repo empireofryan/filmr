@@ -9,7 +9,7 @@
   <%= f.fields_for :comments, @script.comments.build do |script_fields| %>
     <%= script_fields.label "Comments" %>
     <div class="help-block">Write a review</div>
-    <%= script_fields.text_field :description, hide_label: true %>
+    <%= script_fields.text_field :description,  :cols => "20", :rows => "10", placeholder: "Write a review ", hide_label: true %>
   <% end %>
   <br><br>
   <div class="actions"><%= f.submit class: "btn btn-primary" %></div>

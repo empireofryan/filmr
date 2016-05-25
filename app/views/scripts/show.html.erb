@@ -1,18 +1,14 @@
-<style>
-
-</style>
-
-<link href='https://fonts.googleapis.com/css?family=Cousine:400,400italic,700,700italic' rel='stylesheet' type='text/css'><br>
-
-<h1><%= @script.title.upcase %></h1>
+<br><h1><%= @script.title.upcase %></h1>
 <h3><%= @script.logline %></h3>
-<h4><%= @genre.name %></h4>
+<h4><br><%= @genre.name %></h4>
 
-<li><% @script.comments.each do |comment|%></li>
-<%= comment.description %>
-
-<%= comment.user_id %>
+<h4 style="text-decoration: underline"><br>Reviews</h4>
+<br><% @script.comments.each do |comment|%>
+<li><%= comment.description %><br>
+<%= comment.user_id %><br>
+<%= comment.user.username %></li>
 <% end %>
+
 
 <br><br>
 
