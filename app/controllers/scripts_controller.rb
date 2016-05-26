@@ -8,7 +8,7 @@ class ScriptsController < ApplicationController
 
   def new
     @script = current_user.scripts.build
-
+    5.times { @script.comments.build }
   end
 
   def show
@@ -18,13 +18,21 @@ class ScriptsController < ApplicationController
 
   def create
     @script = current_user.scripts.build(script_params)
-    @comment = current_user.comments.build(comment_params)
-    
+    @script.comments do |comment|
+      comment.user = current_user
+      current_user.comments << comment
+      comment.save
+      binding.pry
+      #does this comment have the user_id now?
+    end
+    binding.pry
+    #to look at script, script.comments and see if all IDs are there
     if @script.save
       flash[:success] = "Your event was successfully created!"
       redirect_to genre_scripts_path(@script.genre)
     else
       render :new
+      5.times { @script.comments.build }
     end
   end
 
@@ -52,7 +60,7 @@ class ScriptsController < ApplicationController
   end
 
   def script_params
-    params.require(:script).permit(:title, :logline, :genre_id, comments_attributes: [:description, :user_id])
+    params.require(:script).permit(:user_id, :title, :logline, :genre_id, comments_attributes: [:description, :user_id])
   end
 
   def genre_params
@@ -60,6 +68,6 @@ class ScriptsController < ApplicationController
   end
 
   def comment_params
-#    params.require(:comment).permit(:description, :script_id, :user_id)
+   params.require(:script).permit(comments_attributes: [:description, :user_id])
   end
 end

@@ -4,11 +4,14 @@ class Script < ActiveRecord::Base
   belongs_to :genre
   has_many :comments
 
+  after_save :assign_other_attributes
+
   validates :title, :logline, presence: :true
 
   def comments_attributes=(attributes)
     attributes.each do |k,v|
     comments << Comment.find_or_create_by(description: v['description'])
+
   end
   end
 
@@ -18,6 +21,17 @@ class Script < ActiveRecord::Base
 
   def self.alpha_sorted
     Script.all.sort_by {|script| script.title}
+  end
+
+  private
+
+  def assign_other_attributes
+    self.comments do |comment|
+      comment.script = self
+      if comment.user_id == nil
+        comment.user_id = self.user_id
+      end
+    end
   end
 
 end
