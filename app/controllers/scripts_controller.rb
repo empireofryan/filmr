@@ -9,10 +9,16 @@ class ScriptsController < ApplicationController
   def new
     @script = current_user.scripts.build
     1.times { @script.comments.build }
+    if params["genre_id"].present?
+      @genre_list = Genre.find([params["genre_id"]])
+    else
+      @genre_list = Genre.all
+    end
+
   end
 
   def show
-    @script = script_finder
+    @script = Script.find(params[:id])
     @genre = Genre.find(params[:genre_id])
   end
 
@@ -22,10 +28,10 @@ class ScriptsController < ApplicationController
       comment.user = current_user
       current_user.comments << comment
       comment.save
-      binding.pry
+
       #does this comment have the user_id now?
     end
-    binding.pry
+
     #to look at script, script.comments and see if all IDs are there
     if @script.save
       flash[:success] = "Your event was successfully created!"
@@ -37,7 +43,7 @@ class ScriptsController < ApplicationController
   end
 
   def update
-    @script = script_finder
+    @script = Script.find(params[:id])
     if @script.update(script_params)
       @script.save
       redirect_to genre_scripts_path(@script)
@@ -47,21 +53,13 @@ class ScriptsController < ApplicationController
   end
 
   def destroy
-    @script = script_finder
+    @script = Script.find(params[:id])
     @script.destroy
     flash[:notice] = "Script deleted"
     redirect_to genre_scripts_path(@script.genre)
   end
 
   private
-
-  def script_finder
-    if Script.find(new)
-      render :new_genre_script
-    else
-      Script.find(params[:id])
-    end
-  end
 
   def script_params
     params.require(:script).permit(:user_id, :title, :logline, :genre_id, comments_attributes: [:description, :user_id])

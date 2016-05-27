@@ -20,7 +20,10 @@
   <%= f.label "Logline" %>
   <%= f.text_field :logline %><br><br>
   <div class="field"><%= f.label :genre_id %><br>
-  <%= f.collection_select :genre_id, Genre.all, :id, :name %></div><br>
+
+  <%= f.collection_select :genre_id, @genre_list, :id, :name %></div><br>
+
+
   <%= f.fields_for :comments do |comment_field| %>
     <%= comment_field.label "Comments" %>
     <div class="help-block">Write a review</div>
