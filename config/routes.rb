@@ -1,12 +1,12 @@
 Rails.application.routes.draw do
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   resources :genres do
-    resources :scripts
+    resources :scripts, except: :new
   end
   resources :scripts
  root 'welcome#index'
 
-
+ get '/genres/:genre_id/scripts/new' => 'scripts#new_genre_script'
 
  # get 'auth/:provider/callback', to: 'sessions#create'
  # get 'auth/failure', to: redirect('/')

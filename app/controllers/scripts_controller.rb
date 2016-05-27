@@ -56,7 +56,11 @@ class ScriptsController < ApplicationController
   private
 
   def script_finder
-    Script.find(params[:id])
+    if Script.find(new)
+      render :new_genre_script
+    else
+      Script.find(params[:id])
+    end
   end
 
   def script_params
