@@ -8,7 +8,7 @@ class ScriptsController < ApplicationController
 
   def new
     @script = current_user.scripts.build
-    5.times { @script.comments.build }
+    1.times { @script.comments.build }
   end
 
   def show
@@ -32,7 +32,7 @@ class ScriptsController < ApplicationController
       redirect_to genre_scripts_path(@script.genre)
     else
       render :new
-      5.times { @script.comments.build }
+      1.times { @script.comments.build }
     end
   end
 
