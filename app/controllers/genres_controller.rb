@@ -21,6 +21,10 @@ class GenresController < ApplicationController
 
   def show
     @genre = Genre.find(params[:id])
+    respond_to do |f|
+      f.html { render :show }
+      f.json { render json: @genre }
+    end
   end
 
   private

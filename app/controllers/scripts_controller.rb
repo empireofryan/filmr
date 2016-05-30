@@ -20,6 +20,10 @@ class ScriptsController < ApplicationController
   def show
     @script = Script.find(params[:id])
     @genre = Genre.find(params[:genre_id])
+    respond_to do |f|
+      f.html { render :show }
+      f.json { render json: @script }
+    end
   end
 
   def create
