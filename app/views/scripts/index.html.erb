@@ -1,20 +1,30 @@
-
-
 <br><br>
-<h2 class="page-header"> Scripts</h2>
+<h2 class="page-header">Scripts</h2>
 <div class="col-md-6">
 
-<% @scripts.alpha_sorted.each do |script| %></li>
+  <div class="scripts">
+  </div>
 
+  <script type="text/javascript" charset="utf-8">
+  $(function () {
+    $.get("/scripts.json", function(data) {
+      var scripts = data["scripts"];
+      $.each(scripts, function (index, script) {
+        $('.scripts').append(
+          '<div class="script" id="' + script["id"] + '">' +
+          '<a href="/scripts/' + script["id"] + '">' + script["title"] + '</a>' +
+          '</div>'
+        );
+      })
+    })
+    $(".js-pre").on("click", function() {
+      var nextId = parseInt($(".js-next").attr("data-id")) - 1;
+    });
+    $(".js-next").on("click", function(event) {
+      event.preventDefault();
+      var nextId = parseInt($(".js-next").attr("data-id")) + 1;
+    });
+  });
+  </script>
 
-
-<li><%= link_to script.title, genre_script_path(script.genre, script) %></li>
-  <ul>
-  <li><%= script.logline %></li>
-  <li><%= script.user.email %></li>
-
- 
-  </ul>
-<% end %>
 </div>
-
