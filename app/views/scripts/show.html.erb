@@ -2,7 +2,7 @@
 <h3><%= @script.logline %></h3>
 <h4><br><%= @genre.name %></h4>
 
-<h4 style="text-decoration: underline"><br>Reviews</h4>
+<h4 style="text-decoration: underline"><br>comments</h4>
 <br><% @script.comments.each do |comment|%>
 <li><%= comment.description %><br>
 <%= comment.user_id %><br>
@@ -14,7 +14,7 @@
 <%= form_for @script do |f| %>
 
 <%= f.fields_for :comments, @script.comments.build do |comments_fields| %>
-  <%= comments_fields.label "Add your review" %>
+  <%= comments_fields.label "Add your comment" %>
   <div class="help-block">What do you think about this movie?</div>
   <%= comments_fields.text_field :description, :size=>"50", hide_label: true %>
   <% end %>
@@ -29,3 +29,61 @@
   <br><br>
   <%= link_to "Erase", genre_script_path, method: :delete, data: { confirm: 'Are you sure?'} %>
 <% end %>
+
+
+<a href="#" class="js-pre" data-id="<%=@script.id%>">Previous script</a> |
+<a href="#" class="js-next" data-id="<%=@script.id%>">Next script</a>
+<h2 class="scriptTitle"><%= @script.title %></h2>
+<h4 class="scriptGenre">Genre: <%= link_to @script.genre.name, genre_path(@script.genre) %></h4>
+
+<div class="commentAction">
+  <% if !!@comment_by_current_user %>
+    <%= button_to "Edit your comment", edit_comment_path(@comment_by_current_user), method: :get %>
+  <% elsif %>
+    <%= button_to "comment this script", "/scripts/#{@script.id}/comments/new", method: :get %>
+  <% end %>
+</div>
+
+<div class="comments">
+
+</div>
+
+
+<script type="text/javascript" charset="utf-8">
+  updateView(parseInt($(".js-next").attr("data-id")));
+  var scriptCount;
+  $.get("/scripts.json", function(data) { scriptCount = data["scripts"].length; });
+  $(".js-next").on("click", function() {
+    var nextId = parseInt($(".js-next").attr("data-id")) + 1;
+    updateView(nextId);
+  });
+  $(".js-pre").on("click", function() {
+    var curId = parseInt($(".js-next").attr("data-id"));
+    if (curId > 1) {
+      var nextId = curId - 1;
+      updateView(nextId);
+    }
+  });
+  function updateView(nextId) {
+    $.get("/scripts/" + nextId + ".json", function(data) {
+      var script = data["script"];
+      $(".scriptTitle").text(script["title"]);
+      $(".scriptGenre a").attr("href", "/genres/" + script["genre"]["id"]).text(script["genre"]["name"]);
+      // re-set the id to current on the link
+      $(".js-next").attr("data-id", script["id"]);
+      // show comments
+      $(".comments").empty();
+      if (script["comments"].length === 0) {
+        $(".comments").html("No reviews...yet!");
+      } else {
+        $.each(script["comments"], function(index, comment) {
+          $(".comments").append('<div class="comment">' +
+            '<a href="/users/' + comment["user"]["id"] + '">' + comment["user"]["username"] + '</a>' +
+            ' says, "' + comment["content"] + '"' +
+            '</div>'
+          );
+        });
+      }
+    });
+  }
+</script>

@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   resources :genres do
-    resources :scripts 
+    resources :scripts
   end
   resources :scripts
+  resources :comments, only: [:create, :edit, :update]
+  get '/scripts/:id/comments/new', to: 'comments#new'
  root 'welcome#index'
 
 
