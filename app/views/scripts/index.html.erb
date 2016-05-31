@@ -6,15 +6,15 @@
   </div>
 
   <script type="text/javascript" charset="utf-8">
+  var scriptItem = _.template(`<div class="script" id="\${id}">
+            <a href="/genres/\${genre.id}/scripts/\${id}.json">\${title}</a>
+            </div>`);
+
   $(function () {
-    $.get("/scripts.json", function(data) {
+    $.get("/scripts.json?genre_id=<%= params[:genre_id] %>", function(data) {
       var scripts = data["scripts"];
       $.each(scripts, function (index, script) {
-        $('.scripts').append(
-          '<div class="script" id="' + script["id"] + '">' +
-          '<a href="/scripts/' + script["id"] + '">' + script["title"] + '</a>' +
-          '</div>'
-        );
+        $('.scripts').append(scriptItem(script));
       })
     })
     $(".js-pre").on("click", function() {
