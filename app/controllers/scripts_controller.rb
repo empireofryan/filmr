@@ -4,10 +4,6 @@ class ScriptsController < ApplicationController
 
   def index
     @scripts = Script.where(genre_id: params[:genre_id])
-      logger.debug '*'*80
-      logger.debug @scripts.to_json
-      logger.debug '*'*80
-
       respond_to do |f|
       f.html { render :index }
       f.json { render json: @scripts }
@@ -26,8 +22,7 @@ class ScriptsController < ApplicationController
   end
 
   def show
-    @script = Script.find(params[:id])
-    @genre = Genre.find(params[:genre_id])
+    @script = Script.includes(:genre).find(params[:id])
     respond_to do |f|
       f.html { render :show }
       f.json { render json: @script }

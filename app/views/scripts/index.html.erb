@@ -12,11 +12,25 @@
             <a href="/genres/{{genre.id}}/scripts/{{id}}.json">{{title}}</a>
             </div>`),
     listItem = function (comment) {
-      return '<li>{{ comment.description }}</li>';
+      return '<li>' + comment.description + '</li>';
     },
     scriptShowItem = _.template(`<h1>{{title}}</h1><h2>{{logline}}</h2><h3>{{genre.name}}</h3>
-      <ul>{{ return _.forEach(comments, listItem) }}</ul>`);
+      <ul>{{ _.map(comments, listItem) }}</ul>
+      <div><a href="/scripts/{{prev_id}}.json" class="script-nav">Prev</a> | <a href="/scripts/{{next_id}}.json" class="script-nav">Next</a></div>`);
 
+  $('.script a, a.script-nav').on('click', function (event) {
+    event.preventDefault();
+    // grab the href attribute
+    var href = $(event.target).attr('href');
+    // ajax call with the href attribute // 16
+    $.get(href, function(data) {
+      var script = data["script"];
+      $('.content').html(scriptShowItem(script));
+      // pass response into new show script template // 20
+
+      // insert template into page somewhere // 20 $('...').html(....)
+    });
+  });
 
   // create another template to show script values
 
@@ -25,29 +39,6 @@
       var scripts = data["scripts"];
       $.each(scripts, function (index, script) {
         $('.scripts').append(scriptListItem(script));
-      });
-
-      $('.script a').on('click', function (event) {
-        event.preventDefault();
-        // grab the href attribute
-        var href = $(event.target).attr('href');
-        // ajax call with the href attribute // 16
-        $.get(href, function(data) {
-          var script = data["script"];
-          debugger;
-          // pass response into new show script template // 20
-
-          // insert template into page somewhere // 20 $('...').html(....)
-        });
-      });
-
-      $(".js-pre").on("click", function() {
-        var nextId = parseInt($(".js-next").attr("data-id")) - 1;
-      });
-
-      $(".js-next").on("click", function(event) {
-        event.preventDefault();
-        var nextId = parseInt($(".js-next").attr("data-id")) + 1;
       });
     });
   });
